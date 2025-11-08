@@ -2,13 +2,11 @@
 Adaptive Q-Learning for Collision-Aware Resource Allocation in NR-V2X Mode 2 (V2P, pedSUMO & MATLAB)
 ---
 
-## Overview
-
-This repository contains the dataset and scripts supporting the ICT Express manuscript:
+This repository contains the MATLAB scripts, the generated mobility trace, and the dataset supporting the ICT Express manuscript:
 
 "Adaptive Q-Learning for Collision-Aware Resource Allocation in NR-V2X Mode 2 Using pedSUMO for V2P Scenarios."
 
-It includes MATLAB-generated CSV files, example plots, and scripts for reproducing the AI scheduler performance metrics reported in the manuscript. The dataset focuses on NR-V2X Mode 2 resource allocation for Vehicle-to-Pedestrian (V2P) scenarios using pedSUMO-generated mobility traces.
+It includes MATLAB-generated CSV files, example plots, scripts for reproducing the AI scheduler performance metrics, and a generated mobility trace for evaluation. The dataset focuses on NR-V2X Mode 2 resource allocation for Vehicle-to-Pedestrian (V2P) scenarios. pedSUMO-generated mobility traces are included only as generated outputs, **not the original network files**.
 
 ---
 
@@ -16,20 +14,21 @@ It includes MATLAB-generated CSV files, example plots, and scripts for reproduci
 
 | Folder/File | Description |
 |-------------|-------------|
-| `data/` |The CSV dataset was generated from a MATLAB 2024a Q-learning simulation based on pedSUMO mobility traces. The MATLAB script implements a simplified Q-learning model for resource allocation (vehicles selecting resource blocks), inspired by an ns-3 C++ example but without simulating the radio layer. |
-| `scripts/` |MATLAB-generated CSVs (ai_scheduler_metrics.csv) with episode-wise Q-learning metrics. |
-| `figures/` | Plots illustrating training convergence and scheduler performance. |
+| `data/` |CSV dataset (`ai_scheduler_metrics.csv`) generated from a MATLAB 2024a Q-learning simulation. The script implements a simplified Q-learning model for resource allocation (vehicles selecting resource blocks). Also contains the generated mobility trace `mobility_trace_with_timestamp.xml`, capturing vehicle and pedestrian states at each timestep. |
+| `scripts/` |MATLAB code (`nr_v2p_qlearning_base.m`) and CSV metrics (`ai_scheduler_metrics.csv`). |
+| `figures/` | Plots illustrating training convergence and scheduler performance.|
 | `README.md` | This file. |
 
 ---
 
-## Dataset Details
+## Dataset & Mobility Trace Details
 
 The dataset includes:  
 
-- Episode-wise Q-learning metrics: epsilon, average reward, collisions, and penalties.  
+-Episode-wise Q-learning metrics: epsilon, average reward, collisions, and penalties. 
+-Mobility trace (`mobility_trace_with_timestamp.xml`): generated from the original pedSUMO network (`BasicNetwork.net.xml`), routes (`BasicDemand_.rou.xml`), and GUI settings (`BasicView.xml`). Captures positions, speeds, and lane/edge assignments for vehicles and pedestrians at each timestep.  
 
-**Note:** The dataset corresponds to the simulations reported in the manuscript to be submitted to ICT Express; The CSV dataset (ai_scheduler_metrics.csv) was generated from a MATLAB 2024a Q-learning simulation implementing a simplified NR-V2X Mode 2 resource allocation model (vehicles selecting resource blocks); pedSUMO mobility traces are used separately for evaluating metrics like PDR, not for generating the CSV.
+**Note:** The CSV dataset was generated independently in MATLAB. The included mobility trace is for evaluation and visualization; the original pedSUMO files are not part of this repository. Users can generate mobility traces using the original pedSUMO files if desired.
 
 ---
 
@@ -38,3 +37,7 @@ The dataset includes:
 1. Clone the repository:  
 ```bash
 git clone https://github.com/idris0001/NR-V2X-AI-Scheduler.git
+```
+2. Open MATLAB and run nr_v2p_qlearning_base.m to reproduce the Q-learning metrics stored in ai_scheduler_metrics.csv.
+
+3. Load mobility_trace_with_timestamp.xml in SUMO or any FCD-compatible viewer to analyze vehicle and pedestrian states over time.
